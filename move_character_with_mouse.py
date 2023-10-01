@@ -4,6 +4,7 @@ TUK_WIDTH, TUK_HEIGHT = 1280, 1024
 open_canvas(TUK_WIDTH, TUK_HEIGHT)
 tuk_ground = load_image('TUK_GROUND.png')
 character = load_image('charactersheet.png')
+hand = load_image('hand_arrow.png')
 
 frame_up = [
     (11, 3, 41, 53), 
@@ -48,18 +49,20 @@ y = TUK_HEIGHT // 2
 while running:
     clear_canvas()
     handle_events()
-    target_x=random.ranndint(0,TUK_WIDTH+1)
-    target_y=random.ranndint(0,TUK_HEIGHT+1)
-    
+    target_x=random.randint(0,TUK_WIDTH+1)
+    target_y=random.randint(0,TUK_HEIGHT+1)
+    frame_index = 0
     x1, y1 = x, y
     x2, y2 = target_x, target_y
     dir_y=y2-y1
     dir_x=x2-x1
+    
     for i in range(0, 100+1, 4):
         t = i / 100
         x = (1-t)*x1 + t*x2
         y = (1-t)*y1 + t*y2
         tuk_ground.draw(TUK_WIDTH // 2, TUK_HEIGHT // 2)
+        hand.draw(x2,y2)
         if dir_y > 0:
             frame = frame_up[frame_index]
             character.clip_draw(frame[0], frame[1], frame[2], frame[3], x, y, frame[2]*2, frame[3]*2)
